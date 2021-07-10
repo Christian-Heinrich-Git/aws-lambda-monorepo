@@ -1,0 +1,50 @@
+
+service: hrs-project 
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  profile: serverlessUser
+  region: eu-central-1
+  stage: dev
+  httpApi:
+      cors: true
+  environment:
+      imageUploadBucket: ${self:custom.imageUploadBucket}
+      region: ${self:provider.region}
+  iamRoleStatements:
+      - Effect: Allow
+        Action:
+            - s3:*
+        Resource: '*'
+
+custom:
+    imageUploadBucket: cloud-and-big-data-technologies-image-upload-bucket-2
+
+functions:
+    imageUpload:
+        handler: getSignedURL/app.handler
+        events:
+            - httpApi:
+                  method: GET
+                  path: /get-signed-url
+
+resources:
+    Resources:
+        ImageUploadBucket:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: ${self:custom.imageUploadBucket}
+                CorsConfiguration:
+                    CorsRules:
+                        - AllowedHeaders:
+                            - "*"
+                          AllowedMethods:
+                            - GET
+                            - PUT
+                            - HEAD
+                          AllowedOrigins:
+                            - "*"

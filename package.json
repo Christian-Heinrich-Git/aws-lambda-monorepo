@@ -1,0 +1,9 @@
+{
+  "name": "cloud-and-big-data-technologies-image-upload",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/frontend",
+    "packages/backend"
+  ]
+}
