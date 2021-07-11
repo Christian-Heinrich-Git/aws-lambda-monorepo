@@ -14,7 +14,7 @@ This project is a monorepo with two packages:
 ## Steps to reproduce the deployment with the Serverless Framework CLI
 
 ```
-- npm install -g- serverless
+- npm install -g serverless
 - serverless config credentials --provider aws --key YOUR_ACCESS_KEY --secret YOUR_SECRET_KEY --profile serverlessUser
 - sls deploy
 ```
